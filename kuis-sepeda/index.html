@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kuis Persona Sepeda Anak Muda</title>
+    <title>Kuis Persona & Gaya Hidup</title>
     <style>
         :root {
             --bg-color: #f4f7fa;
@@ -153,7 +153,7 @@
         <!-- GENDER SELECTION SCREEN -->
         <div id="gender-screen">
             <div class="question-counter">Langkah Awal</div>
-            <div class="question-text">Pilih jenis kelamin untuk menyesuaikan visual talent:</div>
+            <div class="question-text">Pilih jenis kelamin untuk menyesuaikan visual hasil persona:</div>
             <div class="options-list">
                 <button class="option-btn" onclick="selectGender('male')">👨 Pria / Laki-laki</button>
                 <button class="option-btn" onclick="selectGender('female')">👩 Wanita / Perempuan</button>
@@ -170,7 +170,7 @@
         <!-- RESULT SCREEN -->
         <div id="result-screen" class="hidden">
             <div class="result-image-wrapper">
-                <img id="result-image" src="" alt="Hasil Persona Sepeda">
+                <img id="result-image" src="" alt="Hasil Persona">
             </div>
             <span class="result-badge" id="result-badge">Persona Kamu</span>
             <h2 class="result-title" id="result-title">Judul Hasil</h2>
@@ -180,7 +180,7 @@
     </div>
 
     <script>
-        let selectedGender = ''; // Menyimpan pilihan gender ('male' atau 'female')
+        let selectedGender = '';
 
         const resultsData = {
             road: {
@@ -221,7 +221,7 @@
             kalcer: {
                 title: "Retro 'Kalcer' City Cruiser",
                 badge: "Vintage Lifestyle",
-                desc: "Gaya estetika klasik, santai, dan penuh karakter seni. Kamu menikmati bersepeda santai menuju spot kopi hits di perkotaan.",
+                desc: "Gaya estetika klasik, santai, dan penuh karakter seni. Kamu menikmati aktivitas santai menuju spot seni atau kopi hits di perkotaan.",
                 imgMale: "kalcer_male.jpg",
                 imgFemale: "kalcer_female.jpg"
             }
@@ -229,75 +229,75 @@
 
         const quizData = [
             {
-                question: "1. Medan perjalanan utama yang paling kamu minati?",
+                question: "1. Bagaimana cara terbaikmu melepas penat setelah seminggu sibuk?",
                 options: [
-                    { text: "Jalan raya aspal mulus", type: "road" },
-                    { text: "Jalur tanah & hutan terjal", type: "mtb" },
-                    { text: "Jalur campuran / kerikil (gravel)", type: "gravel" },
-                    { text: "Area perkotaan padat", type: "folding" }
+                    { text: "Melaju secepat angin di jalur terbuka yang mulus", type: "road" },
+                    { text: "Menantang diri di alam liar yang sunyi", type: "mtb" },
+                    { text: "Road trip panjang tanpa rute pasti", type: "gravel" },
+                    { text: "Nongkrong santai di kedai kopi estetik perkotaan", type: "kalcer" }
                 ]
             },
             {
-                question: "2. Gaya berpakaian andalan saat bersepeda?",
+                question: "2. Prinsip apa yang paling mencerminkan cara kerjamu?",
                 options: [
-                    { text: "Jersey aerodinamis & aero cap", type: "road" },
-                    { text: "Gear trail mesh & sarung tangan", type: "mtb" },
-                    { text: "Apparel teknis bikepacking & topi rimba", type: "gravel" },
-                    { text: "Blazer urban tailored & beanie", type: "folding" }
+                    { text: "Fokus, terstruktur, dan berorientasi pada target cepat", type: "road" },
+                    { text: "Berani mengambil risiko dan tidak takut kotor", type: "mtb" },
+                    { text: "Fleksibel dan selalu siap menghadapi kejutan situasi", type: "gravel" },
+                    { text: "Praktis, efisien, dan serba ringkas", type: "folding" }
                 ]
             },
             {
-                question: "3. Apa tujuan utama kamu saat bersepeda?",
+                question: "3. Apa hal utama yang kamu perhatikan saat membeli pakaian atau gear?",
                 options: [
-                    { text: "Mengejar kecepatan & latihan interval", type: "road" },
-                    { text: "Menaklukkan rintangan alam bebas", type: "mtb" },
-                    { text: "Menjelajah rute baru jarak jauh", type: "gravel" },
-                    { text: "Mobilitas komuter harian praktis", type: "folding" }
+                    { text: "Teknologi tinggi dan aerodinamika/ringan", type: "road" },
+                    { text: "Daya tahan ekstrem terhadap benturan dan cuaca", type: "mtb" },
+                    { text: "Kenyamanan berlapis untuk perjalanan jarak jauh", type: "gravel" },
+                    { text: "Potongan desain klasik vintage yang berkarakter", type: "kalcer" }
                 ]
             },
             {
-                question: "4. Jenis tas atau perlengkapan bawaan favorit?",
+                question: "4. Kalau diberi libur panjang, destinasi mana yang jadi pilihanmu?",
                 options: [
-                    { text: "Bottle cage minimalis tanpa tas besar", type: "road" },
-                    { text: "Tas ransel hidrasi / pelindung", type: "mtb" },
-                    { text: "Full set frame bag bikepacking", type: "gravel" },
-                    { text: "Tas messenger / ransel kasual", type: "fixie" }
+                    { text: "Kota metropolitan modern dengan fasilitas serba cepat", type: "folding" },
+                    { text: "Pegunungan tinggi atau hutan pinus terpencil", type: "mtb" },
+                    { text: "Pedesaan lintas provinsi yang tenang", type: "gravel" },
+                    { text: "Distrik seni bersejarah atau area kreatif urban", type: "fixie" }
                 ]
             },
             {
-                question: "5. Latar visual / background kota impianmu?",
+                question: "5. Bagaimana gaya komunikasi atau interaksimu dengan orang sekitar?",
                 options: [
-                    { text: "Dinding bilah metal silver yang modern", type: "road" },
-                    { text: "Dinding bilah kayu cedar alami", type: "mtb" },
-                    { text: "Dinding terakota clay yang hangat", type: "gravel" },
-                    { text: "Dinding kaca frosted glass rapi", type: "folding" }
+                    { text: "Jelas, tegas, to the point, dan terukur", type: "road" },
+                    { text: "Santai, apa adanya, dan berjiwa bebas", type: "fixie" },
+                    { text: "Hangat, menghargai estetika, dan ramah seni", type: "kalcer" },
+                    { text: "Adaptif, mandiri, dan berfikiran terbuka", type: "gravel" }
                 ]
             },
             {
-                question: "6. Aksesori kepala atau gaya rambut pilihan?",
+                question: "6. Apa jenis musik yang paling sering menemani aktivitasmu?",
                 options: [
-                    { text: "Performance cycling cap", type: "road" },
-                    { text: "Bandanna leher fungsional", type: "mtb" },
-                    { text: "Wide-brim performance hat", type: "gravel" },
-                    { text: "Rambut tertata rapi dengan kacamata bulat retro", type: "kalcer" }
+                    { text: "Musik elektronik bertempo cepat yang memacu adrenalin", type: "road" },
+                    { text: "Rock alternatif atau instrumen alam yang kuat", type: "mtb" },
+                    { text: "Folk, indie, atau acoustic perjalanan", type: "gravel" },
+                    { text: "Hip-hop underground atau lo-fi beats urban", type: "fixie" }
                 ]
             },
             {
-                question: "7. Karakter visual sepeda impianmu?",
+                question: "7. Bagaimana orang lain mendeskripsikan kepribadianmu?",
                 options: [
-                    { text: "Rangka karbon ringan & aerodinamis", type: "road" },
-                    { text: "Full-suspension earth-tone kokoh", type: "mtb" },
-                    { text: "Rangka steel klasik tangguh", type: "gravel" },
-                    { text: "Sepeda lipat elektrik aluminium", type: "folding" }
+                    { text: "Ambisius dan perfeksionis", type: "road" },
+                    { text: "Tangguh dan berjiwa petualang sejati", type: "mtb" },
+                    { text: "Dinamis dan cerdas secara waktu", type: "folding" },
+                    { text: "Unik, kreatif, dan punya selera seni tinggi", type: "kalcer" }
                 ]
             },
             {
-                question: "8. Waktu luang favorit untuk menikmati hobi ini?",
+                question: "8. Apa motto hidup yang paling mewakili dirimu?",
                 options: [
-                    { text: "Pagi buta sebelum matahari terbit", type: "road" },
-                    { text: "Akhir pekan seharian penuh di alam", type: "mtb" },
-                    { text: "Ekspedisi lintas kota saat libur panjang", type: "gravel" },
-                    { text: "Sore hari santai menuju kafe estetik", type: "kalcer" }
+                    { text: "\"Kecepatan dan efisiensi adalah segalanya.\"", type: "road" },
+                    { text: "\"Batas diciptakan untuk dilompati.\"", type: "mtb" },
+                    { text: "\"Hidup adalah eksplorasi tanpa batas.\"", type: "gravel" },
+                    { text: "\"Jadilah autentik dan nikmati tiap momen dengan gaya.\"", type: "fixie" }
                 ]
             }
         ];
@@ -362,7 +362,6 @@
             document.getElementById('result-title').innerText = res.title;
             document.getElementById('result-desc').innerText = res.desc;
             
-            // Menentukan gambar berdasarkan pilihan gender di awal
             let imageSource = (selectedGender === 'female') ? res.imgFemale : res.imgMale;
             document.getElementById('result-image').src = imageSource;
         }
