@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeri Talent & Sepeda Anak Muda</title>
+    <title>Kuis Persona Sepeda Anak Muda</title>
     <style>
         :root {
             --bg-color: #f4f7fa;
             --card-bg: #ffffff;
             --text-color: #1e293b;
             --muted-color: #64748b;
-            --accent-color: #2563eb; /* Blue Accent */
-            --accent-light: #eff6ff; /* Soft Blue Tint */
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-light: #eff6ff;
             --border-color: #e2e8f0;
         }
 
@@ -20,233 +21,293 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 2.5rem 1rem;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        header h1 {
-            font-size: 2.25rem;
-            color: var(--text-color);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-
-        header p {
-            color: var(--muted-color);
-            font-size: 1.05rem;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            width: 100%;
+            max-width: 600px;
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            box-sizing: border-box;
         }
 
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 14px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
-            overflow: hidden;
+        h1, h2 {
+            color: var(--text-color);
+            margin-top: 0;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Quiz Screen Styles */
+        .question-counter {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .options-list {
             display: flex;
             flex-direction: column;
-            transition: all 0.25s ease-in-out;
+            gap: 0.75rem;
         }
 
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 20px -3px rgba(37, 99, 235, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-            border-color: #cbd5e1;
+        .option-btn {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 1rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .image-wrapper {
+        .option-btn:hover {
+            background-color: var(--accent-light);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        /* Result Screen Styles */
+        .result-image-wrapper {
             width: 100%;
             aspect-ratio: 1 / 1;
             background-color: #f1f5f9;
-            position: relative;
+            border-radius: 12px;
             overflow: hidden;
+            margin-bottom: 1.5rem;
+            position: relative;
         }
 
-        .image-wrapper img {
+        .result-image-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
         }
 
-        .placeholder-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--muted-color);
+        .result-badge {
+            display: inline-block;
+            background-color: var(--accent-light);
+            color: var(--accent-color);
+            padding: 0.35rem 0.85rem;
+            border-radius: 20px;
             font-size: 0.85rem;
-            text-align: center;
-            padding: 1rem;
-        }
-
-        .card-content {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .card-title {
-            font-size: 1.2rem;
             font-weight: 600;
-            color: var(--text-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .result-title {
+            font-size: 1.75rem;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .card-desc {
-            font-size: 0.9rem;
+        .result-desc {
+            font-size: 0.95rem;
             color: var(--muted-color);
             line-height: 1.6;
-            margin-bottom: 1.25rem;
-            flex-grow: 1;
+            margin-bottom: 1.5rem;
         }
 
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .badge {
-            background-color: var(--accent-light);
-            color: var(--accent-color);
-            padding: 0.3rem 0.75rem;
-            border-radius: 20px;
+        .restart-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 0.85rem;
+            border-radius: 10px;
+            font-size: 1rem;
             font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
 
-        .dimension {
-            color: var(--muted-color);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
+        .restart-btn:hover {
+            background-color: var(--accent-hover);
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Galeri Talent & Sepeda Anak Muda</h1>
-        <p>Kumpulan konsep visual gaya hidup urban, bikepacking, dan komuter modern.</p>
-    </header>
+    <div class="container">
+        <!-- KUIS SCREEN -->
+        <div id="quiz-screen">
+            <div class="question-counter" id="question-counter">Pertanyaan 1 dari 3</div>
+            <div class="question-text" id="question-text">Memuat pertanyaan...</div>
+            <div class="options-list" id="options-list">
+                <!-- Opsi jawaban akan dirender lewat JavaScript -->
+            </div>
+        </div>
 
-    <main class="container">
+        <!-- RESULT SCREEN -->
+        <div id="result-screen" class="hidden">
+            <div class="result-image-wrapper">
+                <!-- GAMBAR HASIL: Masukkan path gambar di file JS (resultsData) atau ganti src di sini -->
+                <img id="result-image" src="" alt="Hasil Persona Sepeda">
+            </div>
+            <span class="result-badge" id="result-badge">Persona Kamu</span>
+            <h2 class="result-title" id="result-title">Judul Hasil</h2>
+            <p class="result-desc" id="result-desc">Deskripsi persona kamu akan muncul di sini...</p>
+            <button class="restart-btn" onclick="restartQuiz()">Ulangi Kuis</button>
+        </div>
+    </div>
 
-        <!-- CARD 1: Steel Gravel Bike -->
-        <article class="card">
-            <div class="image-wrapper">
-                <img src="" alt="Steel Gravel Bike">
-                <div class="placeholder-text"><code>src="path/to/image1.jpg"</code></div>
-            </div>
-            <div class="card-content">
-                <h2 class="card-title">1. Steel Gravel Bike & Bikepacking</h2>
-                <p class="card-desc">Latar dinding terakota clay slats. Talent pria East Asian dengan apparel teknis bikepacking, topi wide-brim, dan tas frame.</p>
-                <div class="card-footer">
-                    <span class="badge">Gravel</span>
-                    <span class="dimension">Ratio 1:1</span>
-                </div>
-            </div>
-        </article>
+    <script>
+        // DATA 6 PERSONA & TEMPAT MASUKKAN GAMBAR (src)
+        const resultsData = {
+            road: {
+                title: "High-End Carbon Road Bike",
+                badge: "Road Bike Enthusiast",
+                desc: "Kamu menyukai kecepatan, efisiensi tinggi, dan tantangan rute aspal mulus jarak jauh dengan performa aerodinamis maksimal.",
+                img: "road.jpg" // <-- Masukkan nama file/link gambar road bike di sini
+            },
+            mtb: {
+                title: "Full-Suspension Mountain Bike",
+                badge: "Trail Adventurer",
+                desc: "Jiwa penjelajah alam bebas melekat pada dirimu. Jalur terjal, tanah berlumpur, dan rintangan alam adalah arena bermain favoritmu.",
+                img: "mtb.jpg" // <-- Masukkan nama file/link gambar mtb di sini
+            },
+            gravel: {
+                title: "Steel Gravel Bike & Bikepacking",
+                badge: "Gravel Explorer",
+                desc: "Fleksibel dan siap menempuh segala medan. Kamu suka petualangan jarak jauh tanpa batas dengan perlengkapan bikepacking lengkap.",
+                img: "gravel.jpg" // <-- Masukkan nama file/link gambar gravel di sini
+            },
+            folding: {
+                title: "Premium Folding E-Bike",
+                badge: "Urban Commuter",
+                desc: "Praktis, efisien, dan melek teknologi. Mobilitas perkotaan yang cepat serta gaya hidup urban modern adalah gaya utamamu.",
+                img: "folding.jpg" // <-- Masukkan nama file/link gambar folding di sini
+            },
+            fixie: {
+                title: "Minimalist Single-Speed Fixie",
+                badge: "Streetwear Rider",
+                desc: "Sederhana, berani, dan lekat dengan kultur jalanan kota. Kamu mengeksplorasi estetika urban malam hari dengan gaya streetwear khas.",
+                img: "fixie.jpg" // <-- Masukkan nama file/link gambar fixie di sini
+            },
+            kalcer: {
+                title: "Retro 'Kalcer' City Cruiser",
+                badge: "Vintage Lifestyle",
+                desc: "Gaya estetika klasik, santai, dan penuh karakter seni. Kamu menikmati bersepeda santai menuju spot kopi hits di perkotaan.",
+                img: "kalcer.jpg" // <-- Masukkan nama file/link gambar kalcer di sini
+            }
+        };
 
-        <!-- CARD 2: Folding E-Bike -->
-        <article class="card">
-            <div class="image-wrapper">
-                <img src="" alt="Folding E-Bike">
-                <div class="placeholder-text"><code>src="path/to/image2.jpg"</code></div>
-            </div>
-            <div class="card-content">
-                <h2 class="card-title">2. Premium Folding E-Bike</h2>
-                <p class="card-desc">Latar dinding frosted glass slats. Talent mengenakan blazer urban tailored, celana chinos, sepatu kulit, dan beanie charcoal grey.</p>
-                <div class="card-footer">
-                    <span class="badge">Folding</span>
-                    <span class="dimension">Ratio 1:1</span>
-                </div>
-            </div>
-        </article>
+        // PERTANYAAN KUIS (Bisa ditambah/sesuaikan)
+        const quizData = [
+            {
+                question: "Bagaimana cara idealmu menghabiskan akhir pekan di atas sepeda?",
+                options: [
+                    { text: "Melaju kencang di jalan raya aspal mulus pagi hari", type: "road" },
+                    { text: "Menembus jalur hutan terjal dan lumpur pegunungan", type: "mtb" },
+                    { text: "Berpetualang melintasi jalur kerikil antarkota", type: "gravel" }
+                ]
+            },
+            {
+                question: "Gaya pakaian apa yang paling mencerminkan kepribadianmu?",
+                options: [
+                    { text: "Jersey aero ketat minimalis dengan topi performance", type: "road" },
+                    { text: "Kemeja camp collar vintage, korduroi, dan loafers", type: "kalcer" },
+                    { text: "Kaos oversized streetwear, denim robek, dan sneakers", type: "fixie" }
+                ]
+            },
+            {
+                question: "Pilih suasana lingkungan kota/alam yang paling kamu sukai:",
+                options: [
+                    { text: "Gedung perkantoran modern dengan dinding kaca & arsitektur bersih", type: "folding" },
+                    { text: "Spot kafe estetik perkotaan dengan nuansa retro hangat", type: "kalcer" },
+                    { text: "Alam liar bebas tanpa batas cakrawala terbuka", type: "gravel" }
+                ]
+            }
+        ];
 
-        <!-- CARD 3: Single-Speed Fixie -->
-        <article class="card">
-            <div class="image-wrapper">
-                <img src="" alt="Single-Speed Fixie">
-                <div class="placeholder-text"><code>src="path/to/image3.jpg"</code></div>
-            </div>
-            <div class="card-content">
-                <h2 class="card-title">3. Minimalist Fixie</h2>
-                <p class="card-desc">Latar dinding hitam matte. Talent dengan gaya streetwear, kaos grafis oversized, denim robek, sepatu high-top, dan tas messenger.</p>
-                <div class="card-footer">
-                    <span class="badge">Fixie</span>
-                    <span class="dimension">Ratio 1:1</span>
-                </div>
-            </div>
-        </article>
+        let currentQuestion = 0;
+        let scores = { road: 0, mtb: 0, gravel: 0, folding: 0, fixie: 0, kalcer: 0 };
 
-        <!-- CARD 4: Kalcer City Cruiser -->
-        <article class="card">
-            <div class="image-wrapper">
-                <img src="" alt="Kalcer City Cruiser">
-                <div class="placeholder-text"><code>src="path/to/image4.jpg"</code></div>
-            </div>
-            <div class="card-content">
-                <h2 class="card-title">4. Retro 'Kalcer' City Cruiser</h2>
-                <p class="card-desc">Latar dinding mint green. Talent mengenakan kemeja camp collar vintage, celana korduroi forest-green, loafers, dan kacamata bulat.</p>
-                <div class="card-footer">
-                    <span class="badge">Kalcer</span>
-                    <span class="dimension">Ratio 1:1</span>
-                </div>
-            </div>
-        </article>
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const questionCounter = document.getElementById('question-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsList = document.getElementById('options-list');
 
-        <!-- CARD 5: Carbon Road Bike -->
-        <article class="card">
-            <div class="image-wrapper">
-                <img src="" alt="Carbon Road Bike">
-                <div class="placeholder-text"><code>src="path/to/image5.jpg"</code></div>
-            </div>
-            <div class="card-content">
-                <h2 class="card-title">5. High-End Carbon Road Bike</h2>
-                <p class="card-desc">Latar dinding brushed metal silver. Talent wanita atletis dengan perlengkapan aero cycling kit minimalis dan performance cap.</p>
-                <div class="card-footer">
-                    <span class="badge">Road Bike</span>
-                    <span class="dimension">Ratio 1:1</span>
-                </div>
-            </div>
-        </article>
+        function loadQuestion() {
+            const q = quizData[currentQuestion];
+            questionCounter.innerText = `Pertanyaan ${currentQuestion + 1} dari ${quizData.length}`;
+            questionText.innerText = q.question;
+            optionsList.innerHTML = '';
 
-        <!-- CARD 6: Mountain Bike -->
-        <article class="card">
-            <div class="image-wrapper">
-                <img src="" alt="Full-Suspension Mountain Bike">
-                <div class="placeholder-text"><code>src="path/to/image6.jpg"</code></div>
-            </div>
-            <div class="card-content">
-                <h2 class="card-title">6. Full-Suspension Mountain Bike</h2>
-                <p class="card-desc">Latar dinding cedar wood. Talent wanita tangguh dengan perlengkapan trail-riding, jersey mesh, sarung tangan berpelindung, dan bandana.</p>
-                <div class="card-footer">
-                    <span class="badge">MTB</span>
-                    <span class="dimension">Ratio 1:1</span>
-                </div>
-            </div>
-        </article>
+            q.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt.text;
+                btn.onclick = () => selectOption(opt.type);
+                optionsList.appendChild(btn);
+            });
+        }
 
-    </main>
+        function selectOption(type) {
+            scores[type]++;
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
 
+        function showResult() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+
+            // Cari tipe sepeda dengan skor tertinggi
+            let winningType = 'kalcer';
+            let maxScore = -1;
+            for (const [type, score] of Object.entries(scores)) {
+                if (score > maxScore) {
+                    maxScore = score;
+                    winningType = type;
+                }
+            }
+
+            const res = resultsData[winningType];
+            document.getElementById('result-badge').innerText = res.badge;
+            document.getElementById('result-title').innerText = res.title;
+            document.getElementById('result-desc').innerText = res.desc;
+            document.getElementById('result-image').src = res.img;
+        }
+
+        function restartQuiz() {
+            currentQuestion = 0;
+            scores = { road: 0, mtb: 0, gravel: 0, folding: 0, fixie: 0, kalcer: 0 };
+            resultScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        // Jalankan kuis saat pertama dibuka
+        loadQuestion();
+    </script>
 </body>
 </html>
