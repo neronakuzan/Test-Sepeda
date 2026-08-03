@@ -199,7 +199,8 @@
         subtitle: "The Trailblazer / Si Tangguh Pemburu Adrenalin",
         desc: "Kamu adalah pribadi yang pemberani, suka tantangan, dan paling segar kalau berada di tengah alam terbuka. Rutinitas yang membosankan adalah musuh utamamu. Kamu butuh sepeda yang tangguh dan siap diajak menerjang rintangan.",
         motto: "\"Makin ekstrem jalurnya, makin seru ceritanya.\"",
-        img: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=800&q=80"
+        // *** Fallback MTB sudah diganti ke Unsplash sepeda ***
+        img: "https://images.unsplash.com/photo-1576435728678-68d0fbf94e91?auto=format&fit=crop&w=800&q=80"
       },
       gravel: {
         title: "Gravel Bike",
@@ -273,7 +274,7 @@
       }
     }
 
-    // FUNGSI SHOWRESULT TERBARU DENGAN INTEGRASI AI
+    // FUNGSI SHOWRESULT TERBARU DENGAN VERIFIKASI PEMUATAN GAMBAR
     async function showResult() {
       document.getElementById('quiz-screen').classList.add('hidden');
       document.getElementById('result-screen').classList.remove('hidden');
@@ -301,27 +302,38 @@
       imgEl.classList.add('hidden');
       loaderEl.classList.remove('hidden');
 
-      // 2. Request Gambar AI via Serverless Endpoint Vercel
       try {
+        // 2. Request URL Gambar AI via Serverless Endpoint Vercel
         const response = await fetch('/api/generate-bike', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
-            prompt: `Photorealistic custom ${res.title}, ${res.subtitle}, cycling lifestyle background, studio lighting, highly detailed, 8k resolution` 
+            prompt: `A photorealistic custom ${res.title} bike, ${res.subtitle}, cycling lifestyle background, highly detailed, 8k resolution, for ${winningType} style.`
           })
         });
         
         const data = await response.json();
         
         if (data.imageUrl) {
+          // *** UPDATE UTAMA: Verifikasi gambar dapat dimuat ***
+          // Browser mencoba memuat URL tersebut terlebih dahulu di background
+          const pollImg = new Image();
+          pollImg.src = data.imageUrl;
+          await new Promise((resolve, reject) => {
+            pollImg.onload = resolve;
+            pollImg.onerror = reject; // Rejects jika CORS atau pemuatan gagal
+          });
+          
+          // Jika berhasil dimuat, baru pasang ke halaman
           imgEl.src = data.imageUrl;
         } else {
-          throw new Error('Gagal mendapatkan gambar AI');
+          throw new Error('Endpoint tidak mengembalikan URL gambar');
         }
       } catch (error) {
-        console.warn('AI Image Generation error, menggunakan fallback:', error);
-        imgEl.src = res.img; // Gunakan gambar fallback standar jika API gagal/habis kuota
+        console.warn('AI Image Generation atau load gagal, menggunakan fallback:', error);
+        imgEl.src = res.img; // Gunakan Unsplash fallback jika gagal total
       } finally {
+        // Sembunyikan loading dan tampilkan gambar akhir
         loaderEl.classList.add('hidden');
         imgEl.classList.remove('hidden');
       }
