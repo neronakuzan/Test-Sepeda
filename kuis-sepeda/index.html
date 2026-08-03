@@ -49,6 +49,23 @@
             display: none !important;
         }
 
+        /* Progress Bar Styling */
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: var(--border-color);
+            border-radius: 3px;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
         .question-counter {
             font-size: 0.85rem;
             font-weight: 600;
@@ -89,6 +106,13 @@
             color: var(--accent-color);
         }
 
+        .result-top-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
         .result-image-wrapper {
             width: 100%;
             aspect-ratio: 4 / 5; /* Rasio untuk gambar 1080x1350 */
@@ -104,30 +128,6 @@
             height: 100%;
             object-fit: cover;
             display: block;
-        }
-
-        .result-intro {
-            font-size: 0.9rem;
-            color: var(--muted-color);
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-
-        .result-badge {
-            display: inline-block;
-            background-color: var(--accent-light);
-            color: var(--accent-color);
-            padding: 0.35rem 0.85rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .result-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
         }
 
         .result-desc {
@@ -187,6 +187,9 @@
 
         <!-- QUIZ SCREEN -->
         <div id="quiz-screen" class="hidden">
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
             <div class="question-counter" id="question-counter">Pertanyaan 1 dari 8</div>
             <div class="question-text" id="question-text">Memuat pertanyaan...</div>
             <div class="options-list" id="options-list"></div>
@@ -194,12 +197,14 @@
 
         <!-- RESULT SCREEN -->
         <div id="result-screen" class="hidden">
-            <h2 class="result-intro">Hasil persona kamu adalah</h2>
+            <h2 class="result-top-title">Hasil persona kamu adalah</h2>
             <div class="result-image-wrapper">
                 <img id="result-image" src="" alt="Hasil Persona">
             </div>
-            <!-- <span class="result-badge" id="result-badge">Persona Kamu</span>
-            <h2 class="result-title" id="result-title">Judul Hasil</h2> -->
+            <!-- Disembunyikan sesuai permintaan -->
+            <span class="result-badge hidden" id="result-badge">Persona Kamu</span>
+            <h2 class="result-title hidden" id="result-title">Judul Hasil</h2>
+            
             <p class="result-desc" id="result-desc">Deskripsi persona kamu...</p>
             <button class="restart-btn" onclick="restartQuiz()">Ulangi Kuis</button>
         </div>
@@ -337,6 +342,7 @@
         const questionCounter = document.getElementById('question-counter');
         const questionText = document.getElementById('question-text');
         const optionsList = document.getElementById('options-list');
+        const progressBar = document.getElementById('progress-bar');
 
         function selectGender(gender) {
             selectedGender = gender;
@@ -349,6 +355,11 @@
             const q = quizData[currentQuestion];
             questionCounter.innerText = `Pertanyaan ${currentQuestion + 1} dari ${quizData.length}`;
             questionText.innerText = q.question;
+            
+            // Update progress bar width percentage
+            const progressPercentage = ((currentQuestion + 1) / quizData.length) * 100;
+            progressBar.style.width = progressPercentage + '%';
+
             optionsList.innerHTML = '';
 
             q.options.forEach(opt => {
