@@ -26,6 +26,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            box-sizing: border-box;
         }
 
         .container {
@@ -90,7 +91,7 @@
 
         .result-image-wrapper {
             width: 100%;
-            aspect-ratio: 4 / 5; /* Disesuaikan untuk ukuran gambar 1080x1350 */
+            aspect-ratio: 4 / 5; /* Rasio untuk gambar 1080x1350 */
             background-color: #f1f5f9;
             border-radius: 12px;
             overflow: hidden;
@@ -103,6 +104,13 @@
             height: 100%;
             object-fit: cover;
             display: block;
+        }
+
+        .result-intro {
+            font-size: 0.9rem;
+            color: var(--muted-color);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
         }
 
         .result-badge {
@@ -145,6 +153,23 @@
         .restart-btn:hover {
             background-color: var(--accent-hover);
         }
+
+        /* Responsive untuk Mobile: Menghilangkan background putih container */
+        @media (max-width: 768px) {
+            body {
+                background-color: #ffffff;
+                padding: 1rem 0.5rem;
+                align-items: flex-start;
+            }
+
+            .container {
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 1rem;
+                max-width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -172,6 +197,7 @@
             <div class="result-image-wrapper">
                 <img id="result-image" src="" alt="Hasil Persona">
             </div>
+            <div class="result-intro">Hasil persona kamu adalah</div>
             <span class="result-badge" id="result-badge">Persona Kamu</span>
             <h2 class="result-title" id="result-title">Judul Hasil</h2>
             <p class="result-desc" id="result-desc">Deskripsi persona kamu...</p>
