@@ -39,7 +39,7 @@
             box-sizing: border-box;
         }
 
-        h1, h2 {
+        h2 {
             color: var(--text-color);
             margin-top: 0;
         }
@@ -48,7 +48,6 @@
             display: none !important;
         }
 
-        /* Quiz Screen Styles */
         .question-counter {
             font-size: 0.85rem;
             font-weight: 600;
@@ -59,7 +58,7 @@
         }
 
         .question-text {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
             line-height: 1.4;
@@ -74,10 +73,10 @@
         .option-btn {
             background-color: var(--bg-color);
             border: 1px solid var(--border-color);
-            padding: 1rem 1.25rem;
+            padding: 0.9rem 1.2rem;
             border-radius: 10px;
             text-align: left;
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--text-color);
             cursor: pointer;
             transition: all 0.2s ease;
@@ -89,7 +88,6 @@
             color: var(--accent-color);
         }
 
-        /* Result Screen Styles */
         .result-image-wrapper {
             width: 100%;
             aspect-ratio: 1 / 1;
@@ -152,93 +150,154 @@
 <body>
 
     <div class="container">
-        <!-- KUIS SCREEN -->
-        <div id="quiz-screen">
-            <div class="question-counter" id="question-counter">Pertanyaan 1 dari 3</div>
-            <div class="question-text" id="question-text">Memuat pertanyaan...</div>
-            <div class="options-list" id="options-list">
-                <!-- Opsi jawaban akan dirender lewat JavaScript -->
+        <!-- GENDER SELECTION SCREEN -->
+        <div id="gender-screen">
+            <div class="question-counter">Langkah Awal</div>
+            <div class="question-text">Pilih jenis kelamin untuk menyesuaikan visual talent:</div>
+            <div class="options-list">
+                <button class="option-btn" onclick="selectGender('male')">👨 Pria / Laki-laki</button>
+                <button class="option-btn" onclick="selectGender('female')">👩 Wanita / Perempuan</button>
             </div>
+        </div>
+
+        <!-- QUIZ SCREEN -->
+        <div id="quiz-screen" class="hidden">
+            <div class="question-counter" id="question-counter">Pertanyaan 1 dari 8</div>
+            <div class="question-text" id="question-text">Memuat pertanyaan...</div>
+            <div class="options-list" id="options-list"></div>
         </div>
 
         <!-- RESULT SCREEN -->
         <div id="result-screen" class="hidden">
             <div class="result-image-wrapper">
-                <!-- GAMBAR HASIL: Masukkan path gambar di file JS (resultsData) atau ganti src di sini -->
                 <img id="result-image" src="" alt="Hasil Persona Sepeda">
             </div>
             <span class="result-badge" id="result-badge">Persona Kamu</span>
             <h2 class="result-title" id="result-title">Judul Hasil</h2>
-            <p class="result-desc" id="result-desc">Deskripsi persona kamu akan muncul di sini...</p>
+            <p class="result-desc" id="result-desc">Deskripsi persona kamu...</p>
             <button class="restart-btn" onclick="restartQuiz()">Ulangi Kuis</button>
         </div>
     </div>
 
     <script>
-        // DATA 6 PERSONA & TEMPAT MASUKKAN GAMBAR (src)
+        let selectedGender = ''; // Menyimpan pilihan gender ('male' atau 'female')
+
         const resultsData = {
             road: {
                 title: "High-End Carbon Road Bike",
                 badge: "Road Bike Enthusiast",
                 desc: "Kamu menyukai kecepatan, efisiensi tinggi, dan tantangan rute aspal mulus jarak jauh dengan performa aerodinamis maksimal.",
-                img: "road.jpg" // <-- Masukkan nama file/link gambar road bike di sini
+                imgMale: "road_male.jpg",
+                imgFemale: "road_female.jpg"
             },
             mtb: {
                 title: "Full-Suspension Mountain Bike",
                 badge: "Trail Adventurer",
                 desc: "Jiwa penjelajah alam bebas melekat pada dirimu. Jalur terjal, tanah berlumpur, dan rintangan alam adalah arena bermain favoritmu.",
-                img: "mtb.jpg" // <-- Masukkan nama file/link gambar mtb di sini
+                imgMale: "mtb_male.jpg",
+                imgFemale: "mtb_female.jpg"
             },
             gravel: {
                 title: "Steel Gravel Bike & Bikepacking",
                 badge: "Gravel Explorer",
                 desc: "Fleksibel dan siap menempuh segala medan. Kamu suka petualangan jarak jauh tanpa batas dengan perlengkapan bikepacking lengkap.",
-                img: "gravel.jpg" // <-- Masukkan nama file/link gambar gravel di sini
+                imgMale: "gravel_male.jpg",
+                imgFemale: "gravel_female.jpg"
             },
             folding: {
                 title: "Premium Folding E-Bike",
                 badge: "Urban Commuter",
                 desc: "Praktis, efisien, dan melek teknologi. Mobilitas perkotaan yang cepat serta gaya hidup urban modern adalah gaya utamamu.",
-                img: "folding.jpg" // <-- Masukkan nama file/link gambar folding di sini
+                imgMale: "folding_male.jpg",
+                imgFemale: "folding_female.jpg"
             },
             fixie: {
                 title: "Minimalist Single-Speed Fixie",
                 badge: "Streetwear Rider",
                 desc: "Sederhana, berani, dan lekat dengan kultur jalanan kota. Kamu mengeksplorasi estetika urban malam hari dengan gaya streetwear khas.",
-                img: "fixie.jpg" // <-- Masukkan nama file/link gambar fixie di sini
+                imgMale: "fixie_male.jpg",
+                imgFemale: "fixie_female.jpg"
             },
             kalcer: {
                 title: "Retro 'Kalcer' City Cruiser",
                 badge: "Vintage Lifestyle",
                 desc: "Gaya estetika klasik, santai, dan penuh karakter seni. Kamu menikmati bersepeda santai menuju spot kopi hits di perkotaan.",
-                img: "kalcer.jpg" // <-- Masukkan nama file/link gambar kalcer di sini
+                imgMale: "kalcer_male.jpg",
+                imgFemale: "kalcer_female.jpg"
             }
         };
 
-        // PERTANYAAN KUIS (Bisa ditambah/sesuaikan)
         const quizData = [
             {
-                question: "Bagaimana cara idealmu menghabiskan akhir pekan di atas sepeda?",
+                question: "1. Medan perjalanan utama yang paling kamu minati?",
                 options: [
-                    { text: "Melaju kencang di jalan raya aspal mulus pagi hari", type: "road" },
-                    { text: "Menembus jalur hutan terjal dan lumpur pegunungan", type: "mtb" },
-                    { text: "Berpetualang melintasi jalur kerikil antarkota", type: "gravel" }
+                    { text: "Jalan raya aspal mulus", type: "road" },
+                    { text: "Jalur tanah & hutan terjal", type: "mtb" },
+                    { text: "Jalur campuran / kerikil (gravel)", type: "gravel" },
+                    { text: "Area perkotaan padat", type: "folding" }
                 ]
             },
             {
-                question: "Gaya pakaian apa yang paling mencerminkan kepribadianmu?",
+                question: "2. Gaya berpakaian andalan saat bersepeda?",
                 options: [
-                    { text: "Jersey aero ketat minimalis dengan topi performance", type: "road" },
-                    { text: "Kemeja camp collar vintage, korduroi, dan loafers", type: "kalcer" },
-                    { text: "Kaos oversized streetwear, denim robek, dan sneakers", type: "fixie" }
+                    { text: "Jersey aerodinamis & aero cap", type: "road" },
+                    { text: "Gear trail mesh & sarung tangan", type: "mtb" },
+                    { text: "Apparel teknis bikepacking & topi rimba", type: "gravel" },
+                    { text: "Blazer urban tailored & beanie", type: "folding" }
                 ]
             },
             {
-                question: "Pilih suasana lingkungan kota/alam yang paling kamu sukai:",
+                question: "3. Apa tujuan utama kamu saat bersepeda?",
                 options: [
-                    { text: "Gedung perkantoran modern dengan dinding kaca & arsitektur bersih", type: "folding" },
-                    { text: "Spot kafe estetik perkotaan dengan nuansa retro hangat", type: "kalcer" },
-                    { text: "Alam liar bebas tanpa batas cakrawala terbuka", type: "gravel" }
+                    { text: "Mengejar kecepatan & latihan interval", type: "road" },
+                    { text: "Menaklukkan rintangan alam bebas", type: "mtb" },
+                    { text: "Menjelajah rute baru jarak jauh", type: "gravel" },
+                    { text: "Mobilitas komuter harian praktis", type: "folding" }
+                ]
+            },
+            {
+                question: "4. Jenis tas atau perlengkapan bawaan favorit?",
+                options: [
+                    { text: "Bottle cage minimalis tanpa tas besar", type: "road" },
+                    { text: "Tas ransel hidrasi / pelindung", type: "mtb" },
+                    { text: "Full set frame bag bikepacking", type: "gravel" },
+                    { text: "Tas messenger / ransel kasual", type: "fixie" }
+                ]
+            },
+            {
+                question: "5. Latar visual / background kota impianmu?",
+                options: [
+                    { text: "Dinding bilah metal silver yang modern", type: "road" },
+                    { text: "Dinding bilah kayu cedar alami", type: "mtb" },
+                    { text: "Dinding terakota clay yang hangat", type: "gravel" },
+                    { text: "Dinding kaca frosted glass rapi", type: "folding" }
+                ]
+            },
+            {
+                question: "6. Aksesori kepala atau gaya rambut pilihan?",
+                options: [
+                    { text: "Performance cycling cap", type: "road" },
+                    { text: "Bandanna leher fungsional", type: "mtb" },
+                    { text: "Wide-brim performance hat", type: "gravel" },
+                    { text: "Rambut tertata rapi dengan kacamata bulat retro", type: "kalcer" }
+                ]
+            },
+            {
+                question: "7. Karakter visual sepeda impianmu?",
+                options: [
+                    { text: "Rangka karbon ringan & aerodinamis", type: "road" },
+                    { text: "Full-suspension earth-tone kokoh", type: "mtb" },
+                    { text: "Rangka steel klasik tangguh", type: "gravel" },
+                    { text: "Sepeda lipat elektrik aluminium", type: "folding" }
+                ]
+            },
+            {
+                question: "8. Waktu luang favorit untuk menikmati hobi ini?",
+                options: [
+                    { text: "Pagi buta sebelum matahari terbit", type: "road" },
+                    { text: "Akhir pekan seharian penuh di alam", type: "mtb" },
+                    { text: "Ekspedisi lintas kota saat libur panjang", type: "gravel" },
+                    { text: "Sore hari santai menuju kafe estetik", type: "kalcer" }
                 ]
             }
         ];
@@ -246,11 +305,19 @@
         let currentQuestion = 0;
         let scores = { road: 0, mtb: 0, gravel: 0, folding: 0, fixie: 0, kalcer: 0 };
 
+        const genderScreen = document.getElementById('gender-screen');
         const quizScreen = document.getElementById('quiz-screen');
         const resultScreen = document.getElementById('result-screen');
         const questionCounter = document.getElementById('question-counter');
         const questionText = document.getElementById('question-text');
         const optionsList = document.getElementById('options-list');
+
+        function selectGender(gender) {
+            selectedGender = gender;
+            genderScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            loadQuestion();
+        }
 
         function loadQuestion() {
             const q = quizData[currentQuestion];
@@ -281,7 +348,6 @@
             quizScreen.classList.add('hidden');
             resultScreen.classList.remove('hidden');
 
-            // Cari tipe sepeda dengan skor tertinggi
             let winningType = 'kalcer';
             let maxScore = -1;
             for (const [type, score] of Object.entries(scores)) {
@@ -295,19 +361,19 @@
             document.getElementById('result-badge').innerText = res.badge;
             document.getElementById('result-title').innerText = res.title;
             document.getElementById('result-desc').innerText = res.desc;
-            document.getElementById('result-image').src = res.img;
+            
+            // Menentukan gambar berdasarkan pilihan gender di awal
+            let imageSource = (selectedGender === 'female') ? res.imgFemale : res.imgMale;
+            document.getElementById('result-image').src = imageSource;
         }
 
         function restartQuiz() {
             currentQuestion = 0;
+            selectedGender = '';
             scores = { road: 0, mtb: 0, gravel: 0, folding: 0, fixie: 0, kalcer: 0 };
             resultScreen.classList.add('hidden');
-            quizScreen.classList.remove('hidden');
-            loadQuestion();
+            genderScreen.classList.remove('hidden');
         }
-
-        // Jalankan kuis saat pertama dibuka
-        loadQuestion();
     </script>
 </body>
 </html>
