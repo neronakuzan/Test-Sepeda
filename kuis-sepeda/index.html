@@ -141,7 +141,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-color);
             border: 1px solid var(--border-color);
-            padding: 0.9rem 1.2rem;
+            padding: 0.85rem 1.1rem;
             border-radius: 10px;
             text-align: left;
             font-size: 0.95rem;
@@ -161,6 +161,7 @@
             font-weight: 600;
             margin-bottom: 1rem;
             color: var(--text-color);
+            text-align: center;
         }
 
         .result-image-wrapper {
@@ -185,6 +186,7 @@
             color: var(--muted-color);
             line-height: 1.6;
             margin-bottom: 1.5rem;
+            text-align: center;
         }
 
         .restart-btn {
@@ -205,7 +207,7 @@
             background-color: var(--accent-hover);
         }
 
-        /* Responsive untuk Mobile: Menghilangkan background putih container */
+        /* Responsive untuk Mobile */
         @media (max-width: 768px) {
             body {
                 background-color: #ffffff;
@@ -246,7 +248,7 @@
             <div class="progress-container">
                 <div class="progress-bar" id="progress-bar"></div>
             </div>
-            <div class="question-counter" id="question-counter">Pertanyaan 1 dari 8</div>
+            <div class="question-counter" id="question-counter">Pertanyaan 1 dari 10</div>
             <div class="question-text" id="question-text">Memuat pertanyaan...</div>
             <div class="options-list" id="options-list"></div>
         </div>
@@ -318,55 +320,67 @@
             {
                 question: "1. Bagaimana cara terbaikmu melepas penat setelah seminggu sibuk?",
                 options: [
-                    { text: "Melaju secepat angin di jalur terbuka yang mulus", type: "road" },
-                    { text: "Menantang diri di alam liar yang sunyi", type: "mtb" },
-                    { text: "Road trip panjang tanpa rute pasti", type: "gravel" },
-                    { text: "Nongkrong santai di kedai kopi estetik perkotaan", type: "kalcer" }
+                    { text: "Melaju cepat di jalur aspal mulus", type: "road" },
+                    { text: "Menantang jalur ekstrem di alam bebas", type: "mtb" },
+                    { text: "Berpetualang lintas jalur tanpa batas", type: "gravel" },
+                    { text: "Berkeliling kota dengan praktis", type: "folding" },
+                    { text: "Menikmati dinamika jalanan malam kota", type: "fixie" },
+                    { text: "Santai nongkrong di cafe vintage", type: "kalcer" }
                 ]
             },
             {
                 question: "2. Prinsip apa yang paling mencerminkan cara kerjamu?",
                 options: [
-                    { text: "Fokus, terstruktur, dan berorientasi pada target cepat", type: "road" },
-                    { text: "Berani mengambil risiko dan tidak takut kotor", type: "mtb" },
-                    { text: "Fleksibel dan selalu siap menghadapi kejutan situasi", type: "gravel" },
-                    { text: "Praktis, efisien, dan serba ringkas", type: "folding" }
+                    { text: "Fokus, terstruktur, dan berorientasi target", type: "road" },
+                    { text: "Berani ambil risiko & hadapi rintangan", type: "mtb" },
+                    { text: "Fleksibel dan adaptif pada situasi baru", type: "gravel" },
+                    { text: "Efisien, cepat, & cerdas manfaatkan waktu", type: "folding" },
+                    { text: "Apa adanya, berani berekspresi bebas", type: "fixie" },
+                    { text: "Menghargai proses, seni, & detail autentik", type: "kalcer" }
                 ]
             },
             {
-                question: "3. Apa hal utama yang kamu perhatikan saat membeli pakaian atau gear?",
+                question: "3. Apa hal utama yang kamu perhatikan saat memilih gear atau pakaian?",
                 options: [
-                    { text: "Teknologi tinggi dan aerodinamika/ringan", type: "road" },
-                    { text: "Daya tahan ekstrem terhadap benturan dan cuaca", type: "mtb" },
-                    { text: "Kenyamanan berlapis untuk perjalanan jarak jauh", type: "gravel" },
-                    { text: "Potongan desain klasik vintage yang berkarakter", type: "kalcer" }
+                    { text: "Teknologi mutakhir dan aerodinamika", type: "road" },
+                    { text: "Daya tahan tinggi terhadap cuaca ekstrem", type: "mtb" },
+                    { text: "Kenyamanan maksimal untuk jarak jauh", type: "gravel" },
+                    { text: "Ringkas, fungsional, & mudah dibawa", type: "folding" },
+                    { text: "Gaya urban streetwear yang khas", type: "fixie" },
+                    { text: "Estetika klasik bernilai seni tinggi", type: "kalcer" }
                 ]
             },
             {
                 question: "4. Kalau diberi libur panjang, destinasi mana yang jadi pilihanmu?",
                 options: [
-                    { text: "Kota metropolitan modern dengan fasilitas serba cepat", type: "folding" },
-                    { text: "Pegunungan tinggi atau hutan pinus terpencil", type: "mtb" },
-                    { text: "Pedesaan lintas provinsi yang tenang", type: "gravel" },
-                    { text: "Distrik seni bersejarah atau area kreatif urban", type: "fixie" }
+                    { text: "Kota modern dengan sirkuit atau jalur mulus", type: "road" },
+                    { text: "Pegunungan tinggi atau hutan lebat sunyi", type: "mtb" },
+                    { text: "Pedesaan luas lintas provinsi", type: "gravel" },
+                    { text: "Kawasan metropolitan modern padat", type: "folding" },
+                    { text: "Distrik kreatif urban penuh mural", type: "fixie" },
+                    { text: "Kampung seni bersejarah yang tenang", type: "kalcer" }
                 ]
             },
             {
                 question: "5. Bagaimana gaya komunikasi atau interaksimu dengan orang sekitar?",
                 options: [
-                    { text: "Jelas, tegas, to the point, dan terukur", type: "road" },
-                    { text: "Santai, apa adanya, dan berjiwa bebas", type: "fixie" },
-                    { text: "Hangat, menghargai estetika, dan ramah seni", type: "kalcer" },
-                    { text: "Adaptif, mandiri, dan berfikiran terbuka", type: "gravel" }
+                    { text: "Jelas, tegas, dan to the point", type: "road" },
+                    { text: "Terbuka, tangguh, & pemberani", type: "mtb" },
+                    { text: "Mandiri dan berpikiran terbuka luas", type: "gravel" },
+                    { text: "Cekatan, praktis, dan solutif", type: "folding" },
+                    { text: "Santai, blak-blakan, & berjiwa bebas", type: "fixie" },
+                    { text: "Hangat, ramah seni, & penuh makna", type: "kalcer" }
                 ]
             },
             {
                 question: "6. Apa jenis musik yang paling sering menemani aktivitasmu?",
                 options: [
-                    { text: "Musik elektronik bertempo cepat yang memacu adrenalin", type: "road" },
-                    { text: "Rock alternatif atau instrumen alam yang kuat", type: "mtb" },
+                    { text: "Musik elektronik bertempo cepat", type: "road" },
+                    { text: "Rock alternatif atau instrumen alam", type: "mtb" },
                     { text: "Folk, indie, atau acoustic perjalanan", type: "gravel" },
-                    { text: "Hip-hop underground atau lo-fi beats urban", type: "fixie" }
+                    { text: "Podcast inspiratif atau pop modern", type: "folding" },
+                    { text: "Hip-hop underground atau lo-fi beats", type: "fixie" },
+                    { text: "Jazz klasik atau piringan hitam retro", type: "kalcer" }
                 ]
             },
             {
@@ -374,8 +388,10 @@
                 options: [
                     { text: "Ambisius dan perfeksionis", type: "road" },
                     { text: "Tangguh dan berjiwa petualang sejati", type: "mtb" },
-                    { text: "Dinamis dan cerdas secara waktu", type: "folding" },
-                    { text: "Unik, kreatif, dan punya selera seni tinggi", type: "kalcer" }
+                    { text: "Fleksibel dan penjelajah sejati", type: "gravel" },
+                    { text: "Cerdas, modern, & mobilitas tinggi", type: "folding" },
+                    { text: "Unik, berani, dan ekspresif", type: "fixie" },
+                    { text: "Kreatif, estetik, berjiwa seni", type: "kalcer" }
                 ]
             },
             {
@@ -384,7 +400,31 @@
                     { text: "\"Kecepatan dan efisiensi adalah segalanya.\"", type: "road" },
                     { text: "\"Batas diciptakan untuk dilompati.\"", type: "mtb" },
                     { text: "\"Hidup adalah eksplorasi tanpa batas.\"", type: "gravel" },
-                    { text: "\"Jadilah autentik dan nikmati tiap momen dengan gaya.\"", type: "fixie" }
+                    { text: "\"Waktu adalah aset paling berharga.\"", type: "folding" },
+                    { text: "\"Jadilah autentik dengan caramu sendiri.\"", type: "fixie" },
+                    { text: "\"Nikmati tiap detik dengan estetika.\"", type: "kalcer" }
+                ]
+            },
+            {
+                question: "9. Bagaimana reaksimu saat menghadapi masalah tak terduga?",
+                options: [
+                    { text: "Susun strategi cepat untuk menyelesaikannya", type: "road" },
+                    { text: "Hadapi langsung dengan kepala dingin", type: "mtb" },
+                    { text: "Cari jalur alternatif lain yang tak biasa", type: "gravel" },
+                    { text: "Cari solusi praktis paling efisien waktu", type: "folding" },
+                    { text: "Jalani dan selesaikan dengan gaya sendiri", type: "fixie" },
+                    { text: "Tenang merenungkan makna di balik masalah", type: "kalcer" }
+                ]
+            },
+            {
+                question: "10. Apa impian terbesar dalam gaya hidup atau hobimu?",
+                options: [
+                    { text: "Menjadi yang tercepat & capai prestasi puncak", type: "road" },
+                    { text: "Menaklukkan medan tersulit di dunia", type: "mtb" },
+                    { text: "Menjelajah tempat tersembunyi yang tak terjamah", type: "gravel" },
+                    { text: "Menciptakan efisiensi hidup sempurna di kota", type: "folding" },
+                    { text: "Menginspirasi kultur jalanan dengan identitas unik", type: "fixie" },
+                    { text: "Membangun ruang hidup penuh estetika seni", type: "kalcer" }
                 ]
             }
         ];
