@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kuis Persona & Gaya Hidup</title>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --bg-color: #f4f7fa;
@@ -17,7 +22,7 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
@@ -43,10 +48,54 @@
         h2 {
             color: var(--text-color);
             margin-top: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         .hidden {
             display: none !important;
+        }
+
+        /* Gender Selection Layout (Kiri-Kanan) */
+        .gender-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+
+        .gender-options {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .gender-card {
+            flex: 1;
+            background-color: var(--bg-color);
+            border: 2px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .gender-card:hover {
+            background-color: var(--accent-light);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .gender-icon {
+            font-size: 3rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .gender-label {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-color);
         }
 
         /* Progress Bar Styling */
@@ -89,6 +138,7 @@
         }
 
         .option-btn {
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-color);
             border: 1px solid var(--border-color);
             padding: 0.9rem 1.2rem;
@@ -138,6 +188,7 @@
         }
 
         .restart-btn {
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--accent-color);
             color: white;
             border: none;
@@ -177,11 +228,16 @@
     <div class="container">
         <!-- GENDER SELECTION SCREEN -->
         <div id="gender-screen">
-            <div class="question-counter">Langkah Awal</div>
-            <div class="question-text">Pilih jenis kelamin untuk menyesuaikan visual hasil persona:</div>
-            <div class="options-list">
-                <button class="option-btn" onclick="selectGender('male')">👨 Pria / Laki-laki</button>
-                <button class="option-btn" onclick="selectGender('female')">👩 Wanita / Perempuan</button>
+            <div class="gender-title">Pilih jenis kelamin untuk menyesuaikan visual hasil persona:</div>
+            <div class="gender-options">
+                <div class="gender-card" onclick="selectGender('male')">
+                    <div class="gender-icon">👨</div>
+                    <div class="gender-label">Pria</div>
+                </div>
+                <div class="gender-card" onclick="selectGender('female')">
+                    <div class="gender-icon">👩</div>
+                    <div class="gender-label">Wanita</div>
+                </div>
             </div>
         </div>
 
@@ -356,7 +412,6 @@
             questionCounter.innerText = `Pertanyaan ${currentQuestion + 1} dari ${quizData.length}`;
             questionText.innerText = q.question;
             
-            // Update progress bar width percentage
             const progressPercentage = ((currentQuestion + 1) / quizData.length) * 100;
             progressBar.style.width = progressPercentage + '%';
 
